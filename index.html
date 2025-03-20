@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task & Notes App</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #2c3e50;
+            color: white;
+        }
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #34495e;
+            padding: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .button {
+            background: #e74c3c;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 5px;
+            color: white;
+            border: none;
+        }
+        .window {
+            position: absolute;
+            width: 300px;
+            background: #1abc9c;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+            top: 100px;
+            left: 100px;
+        }
+        .draggable {
+            cursor: move;
+            background: #16a085;
+            padding: 5px;
+            text-align: center;
+        }
+        .list {
+            max-height: 150px;
+            overflow: auto;
+            background: white;
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="taskbar">
+        <button class="button" onclick="openWindow('task-window')">Tasks</button>
+        <button class="button" onclick="openWindow('note-window')">Notes</button>
+    </div>
+    
+    <div id="task-window" class="window">
+        <div class="draggable" onmousedown="dragWindow(event, 'task-window')">Task Manager</div>
+        <input type="text" id="task-input" placeholder="New Task">
+        <button onclick="addItem('task')">Add</button>
+        <ul id="task-list" class="list"></ul>
+    </div>
+    
+    <div id="note-window" class="window">
+        <div class="draggable" onmousedown="dragWindow(event, 'note-window')">Notes</div>
+        <input type="text" id="note-input" placeholder="New Note">
+        <button onclick="addItem('note')">Add</button>
+        <ul id="note-list" class="list"></ul>
+    </div>
+    
+    <script>
+        function openWindow(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+
+        function addItem(type) {
+            const input = document.getElementById(`${type}-input`);
+            if (input.value.trim() === '') return;
+            const list = document.getElementById(`${type}-list`);
+            const li = document.createElement("li");
+            li.textContent = input.value;
+            li.onclick = () => li.remove();
+            list.appendChild(li);
+            input.value = '';
+        }
+        
+        function dragWindow(event, id) {
+            let elem = document.getElementById(id);
+            let shiftX = event.clientX - elem.getBoundingClientRect().left;
+            let shiftY = event.clientY - elem.getBoundingClientRect().top;
+            document.onmousemove = (e) => {
+                elem.style.left = e.clientX - shiftX + 'px';
+                elem.style.top = e.clientY - shiftY + 'px';
+            };
+            document.onmouseup = () => document.onmousemove = document.onmouseup = null;
+        }
+    </script>
+</body>
+</html>
