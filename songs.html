@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Malayalam Christian Devotional Songs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(to right, #2c3e50, #34495e);
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    header p {
+      margin: 10px 0 0;
+      font-size: 16px;
+      opacity: 0.9;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .now-playing {
+      background: #fff;
+      margin: 15px 20px;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .now-playing.active {
+      display: block;
+    }
+    .now-playing h3 {
+      margin: 0 0 10px;
+      color: #2c3e50;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .now-playing h3 i {
+      color: #e74c3c;
+    }
+    .player-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .player-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8f9fa;
+      padding: 12px 20px;
+      border-radius: 8px;
+    }
+    .player-controls .song-info {
+      font-weight: 600;
+      color: #2c3e50;
+      max-width: 70%;
+    }
+    .player-controls .actions {
+      display: flex;
+      gap: 12px;
+    }
+    .player-controls button {
+      background: #2c3e50;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .player-controls button:hover {
+      background: #1a252f;
+      transform: translateY(-2px);
+    }
+    .player-controls button#openInYT {
+      background: #e74c3c;
+    }
+    .player-controls button#openInYT:hover {
+      background: #c0392b;
+    }
+    .container {
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .filters {
+      margin-bottom: 25px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .filters button {
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      background: #e0e0e0;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .filters button.active {
+      background: #2c3e50;
+      color: #fff;
+      box-shadow: 0 4px 8px rgba(44, 62, 80, 0.3);
+    }
+    .filters button:hover:not(.active) {
+      background: #d0d0d0;
+      transform: translateY(-2px);
+    }
+    .song-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+    }
+    .song-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .song-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+    }
+    .song-card h3 {
+      margin: 0 0 10px;
+      font-size: 17px;
+      color: #2c3e50;
+      flex-grow: 1;
+    }
+    .song-card .category {
+      font-size: 13px;
+      color: #7f8c8d;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .song-card .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+    .song-card button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .song-card button:hover {
+      background: #2980b9;
+      transform: translateY(-2px);
+    }
+    .song-card a {
+      text-decoration: none;
+      color: #e74c3c;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.3s;
+    }
+    .song-card a:hover {
+      color: #c0392b;
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #7f8c8d;
+      border-top: 1px solid #eee;
+      margin-top: 40px;
+    }
+    @media (max-width: 768px) {
+      .song-list {
+        grid-template-columns: 1fr;
+      }
+      .player-controls {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+      .player-controls .actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .now-playing {
+        margin: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Malayalam Christian Devotional Songs</h1>
+  <p>Listen directly on the website or open in YouTube. Categorized collection of popular worship songs.</p>
+</header>
+
+<div class="now-playing" id="nowPlaying">
+  <h3><i class="fas fa-play-circle"></i> Now Playing</h3>
+  <div class="player-container">
+    <div class="video-wrapper">
+      <iframe id="playerFrame" 
+              title="YouTube video player" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              referrerpolicy="strict-origin-when-cross-origin" 
+              allowfullscreen>
+      </iframe>
+    </div>
+    <div class="player-controls">
+      <div class="song-info" id="currentSongTitle">Select a song to play</div>
+      <div class="actions">
+        <button id="prevBtn"><i class="fas fa-step-backward"></i> Previous</button>
+        <button id="nextBtn">Next <i class="fas fa-step-forward"></i></button>
+        <button id="openInYT"><i class="fab fa-youtube"></i> Open in YouTube</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="filters" id="filters"></div>
+  <div class="song-list" id="songList"></div>
+</div>
+
+<footer>
+  Malayalam Christian devotional songs – for worship and meditation. All rights belong to respective copyright holders.
+</footer>
+
+<script>
+  const songs = [
+    // ===== Non‑Stop / Collections =====
+    {
+      title: "Malayalam Christian Devotional Songs | Non Stop Christian Songs",
+      category: "Non‑Stop Collections",
+      youtubeId: "fh2P_wBO9j0",
+      url: "https://www.youtube.com/watch?v=fh2P_wBO9j0"
+    },
+    {
+      title: "Nonstop Malayalam Christian Worship Songs (KS Chithra, Kester, Sujatha)",
+      category: "Non‑Stop Collections",
+      youtubeId: "cVSLTZs_H5A",
+      url: "https://www.youtube.com/watch?v=cVSLTZs_H5A"
+    },
+    {
+      title: "Malayalam Christian Devotional Songs | Evergreen Songs",
+      category: "Non‑Stop Collections",
+      youtubeId: "blGfOr7IfHk",
+      url: "https://www.youtube.com/watch?v=blGfOr7IfHk"
+    },
+    {
+      title: "Non Stop Traditional Malayalam Christian Songs",
+      category: "Non‑Stop Collections",
+      youtubeId: "AVNROyvcQlE",
+      url: "https://www.youtube.com/watch?v=AVNROyvcQlE"
+    },
+
+    // ===== Evergreen / Old Songs =====
+    {
+      title: "Jesus | Evergreen Malayalam Christian Devotional Songs",
+      category: "Evergreen / Old",
+      youtubeId: "TvS82yU9Vjs",
+      url: "https://www.youtube.com/watch?v=TvS82yU9Vjs"
+    },
+    {
+      title: "Daivam Thannathallathonnum",
+      category: "Evergreen / Old",
+      youtubeId: "lo6fucs_QG4",
+      url: "https://www.youtube.com/watch?v=lo6fucs_QG4"
+    },
+
+    // ===== Individual Popular Songs =====
+    {
+      title: "Enne Nadathum | Anil Adoor",
+      category: "Individual Songs",
+      youtubeId: "rEfKzlE5XAQ",
+      url: "https://www.youtube.com/watch?v=rEfKzlE5XAQ"
+    },
+    {
+      title: "Ennil Cheitha Nanmakal",
+      category: "Individual Songs",
+      youtubeId: "eME3ileqMQE",
+      url: "https://www.youtube.com/watch?v=eME3ileqMQE"
+    },
+    {
+      title: "Athmave Athmave En Parishudhathmave",
+      category: "Individual Songs",
+      youtubeId: "W7HmhHfDuoc",
+      url: "https://www.youtube.com/watch?v=W7HmhHfDuoc"
+    },
+    {
+      title: "Arinjilla Njan Snehathe",
+      category: "Individual Songs",
+      youtubeId: "_q1WP-MJ0lQ",
+      url: "https://www.youtube.com/watch?v=_q1WP-MJ0lQ"
+    },
+
+    // ===== Playlists =====
+    {
+      title: "Popular Malayalam Christian Songs – Playlist",
+      category: "Playlists",
+      youtubeId: "videoseries?list=PL9bl9M5a5QAYdNgpHLjAxcPImh1eWdibD",
+      url: "https://www.youtube.com/playlist?list=PL9bl9M5a5QAYdNgpHLjAxcPImh1eWdibD"
+    },
+    {
+      title: "Non Stop Malayalam Worship Songs – Playlist",
+      category: "Playlists",
+      youtubeId: "videoseries?list=PLuUgSD-kFnq0roO-b2Lyo5Pahm1eRr1r-",
+      url: "https://www.youtube.com/playlist?list=PLuUgSD-kFnq0roO-b2Lyo5Pahm1eRr1r-"
+    }
+  ];
+
+  // State variables
+  let currentSongIndex = -1;
+  const songList = document.getElementById("songList");
+  const filters = document.getElementById("filters");
+  const nowPlaying = document.getElementById("nowPlaying");
+  const playerFrame = document.getElementById("playerFrame");
+  const currentSongTitle = document.getElementById("currentSongTitle");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const openInYTBtn = document.getElementById("openInYT");
+
+  const categories = ["All", ...new Set(songs.map(s => s.category))];
+  
+  // Category icons mapping
+  const categoryIcons = {
+    "Non‑Stop Collections": "fas fa-compact-disc",
+    "Evergreen / Old": "fas fa-star",
+    "Individual Songs": "fas fa-music",
+    "Playlists": "fas fa-list"
+  };
+
+  function renderFilters() {
+    filters.innerHTML = '';
+    categories.forEach((cat, index) => {
+      const btn = document.createElement("button");
+      const icon = cat === "All" ? "fas fa-layer-group" : (categoryIcons[cat] || "fas fa-tag");
+      btn.innerHTML = `<i class="${icon}"></i> ${cat}`;
+      if (index === 0) btn.classList.add("active");
+      btn.onclick = () => filterSongs(cat, btn);
+      filters.appendChild(btn);
+    });
+  }
+
+  function renderSongs(list) {
+    songList.innerHTML = "";
+    list.forEach((song, index) => {
+      const card = document.createElement("div");
+      card.className = "song-card";
+      card.innerHTML = `
+        <h3>${song.title}</h3>
+        <div class="category"><i class="${categoryIcons[song.category] || "fas fa-tag"}"></i> ${song.category}</div>
+        <div class="actions">
+          <button class="play-btn" data-index="${index}">
+            <i class="fas fa-play"></i> Play Now
+          </button>
+          <a href="${song.url}" target="_blank">
+            <i class="fab fa-youtube"></i> Open in YouTube
+          </a>
+        </div>
+      `;
+      songList.appendChild(card);
+    });
+    
+    // Add event listeners to play buttons
+    document.querySelectorAll('.play-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const index = parseInt(this.getAttribute('data-index'));
+        playSong(index, list);
+      });
+    });
+  }
+
+  function filterSongs(category, btn) {
+    document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if (category === "All") {
+      renderSongs(songs);
+    } else {
+      renderSongs(songs.filter(s => s.category === category));
+    }
+  }
+
+  function playSong(index, list = songs) {
+    currentSongIndex = index;
+    const song = list[currentSongIndex];
+    
+    // Generate embed URL with proper parameters
+    let embedUrl;
+    if (song.youtubeId.startsWith('videoseries?')) {
+      // For playlists
+      embedUrl = `https://www.youtube.com/embed/${song.youtubeId}?autoplay=1&rel=0`;
+    } else {
+      // For single videos
+      embedUrl = `https://www.youtube.com/embed/${song.youtubeId}?autoplay=1&rel=0&si=jsdrq9R4eeNoze9a`;
+    }
+    
+    // Update player
+    playerFrame.src = embedUrl;
+    currentSongTitle.textContent = song.title;
+    nowPlaying.classList.add('active');
+    
+    // Scroll to player
+    nowPlaying.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+    // Update YouTube link
+    openInYTBtn.onclick = () => window.open(song.url, '_blank');
+    
+    // Update button states
+    updateNavButtons();
+  }
+
+  function updateNavButtons() {
+    prevBtn.disabled = currentSongIndex <= 0;
+    nextBtn.disabled = currentSongIndex >= songs.length - 1;
+    
+    if (currentSongIndex <= 0) {
+      prevBtn.style.opacity = "0.5";
+      prevBtn.style.cursor = "not-allowed";
+    } else {
+      prevBtn.style.opacity = "1";
+      prevBtn.style.cursor = "pointer";
+    }
+    
+    if (currentSongIndex >= songs.length - 1) {
+      nextBtn.style.opacity = "0.5";
+      nextBtn.style.cursor = "not-allowed";
+    } else {
+      nextBtn.style.opacity = "1";
+      nextBtn.style.cursor = "pointer";
+    }
+  }
+
+  function playNext() {
+    if (currentSongIndex < songs.length - 1) {
+      playSong(currentSongIndex + 1);
+    }
+  }
+
+  function playPrev() {
+    if (currentSongIndex > 0) {
+      playSong(currentSongIndex - 1);
+    }
+  }
+
+  // Event listeners for player controls
+  prevBtn.addEventListener('click', playPrev);
+  nextBtn.addEventListener('click', playNext);
+
+  // Initialize the page
+  renderFilters();
+  renderSongs(songs);
+  
+  // Auto-play first song on page load (optional)
+  // setTimeout(() => playSong(0), 1000);
+</script>
+
+</body>
+</html>
