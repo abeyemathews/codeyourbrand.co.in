@@ -251,6 +251,21 @@
         margin: 10px;
       }
     }
+    .playlist-warning {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      color: #856404;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .playlist-warning i {
+      color: #f39c12;
+    }
   </style>
 </head>
 <body>
@@ -363,12 +378,6 @@
       youtubeId: "Fjo3Iq4kP4c",
       url: "https://www.youtube.com/watch?v=Fjo3Iq4kP4c"
     },
-    {
-      title: "Ponmuthu Chuvanna | Classic Devotional",
-      category: "Evergreen / Old",
-      youtubeId: "b1wQRASFJt0",
-      url: "https://www.youtube.com/watch?v=b1wQRASFJt0"
-    },
 
     // ===== KS Chithra Special =====
     {
@@ -395,12 +404,6 @@
       youtubeId: "7cl8K_Pv3Cs",
       url: "https://www.youtube.com/watch?v=7cl8K_Pv3Cs"
     },
-    {
-      title: "Karunya Sagaran | KS Chithra",
-      category: "KS Chithra Songs",
-      youtubeId: "R-mMDtmP-u0",
-      url: "https://www.youtube.com/watch?v=R-mMDtmP-u0"
-    },
 
     // ===== KJ Yesudas Special =====
     {
@@ -420,12 +423,6 @@
       category: "KJ Yesudas Songs",
       youtubeId: "z5tGMOf3u-8",
       url: "https://www.youtube.com/watch?v=z5tGMOf3u-8"
-    },
-    {
-      title: "Daivam Mathram Nee | KJ Yesudas",
-      category: "KJ Yesudas Songs",
-      youtubeId: "24FbWrDxlOs",
-      url: "https://www.youtube.com/watch?v=24FbWrDxlOs"
     },
 
     // ===== MG Sreekumar Special =====
@@ -485,18 +482,6 @@
       youtubeId: "jJK4H0AF8y8",
       url: "https://www.youtube.com/watch?v=jJK4H0AF8y8"
     },
-    {
-      title: "Yeshu Nin Padangal",
-      category: "Popular Songs",
-      youtubeId: "L8pLfsr0EwI",
-      url: "https://www.youtube.com/watch?v=L8pLfsr0EwI"
-    },
-    {
-      title: "Daivame Nee Varu",
-      category: "Popular Songs",
-      youtubeId: "qA3aH1jJp5Y",
-      url: "https://www.youtube.com/watch?v=qA3aH1jJp5Y"
-    },
 
     // ===== Modern Worship Songs =====
     {
@@ -516,18 +501,6 @@
       category: "Modern Worship",
       youtubeId: "FqIIZjhSKSM",
       url: "https://www.youtube.com/watch?v=FqIIZjhSKSM"
-    },
-    {
-      title: "Ellaam Nee Cheyyum | Modern Devotional",
-      category: "Modern Worship",
-      youtubeId: "gj6P9a2sLnc",
-      url: "https://www.youtube.com/watch?v=gj6P9a2sLnc"
-    },
-    {
-      title: "Nee En Jeevan Nadhi | Worship Song",
-      category: "Modern Worship",
-      youtubeId: "Wv-SO3SCYJg",
-      url: "https://www.youtube.com/watch?v=Wv-SO3SCYJg"
     },
 
     // ===== Christmas Special Songs =====
@@ -549,12 +522,6 @@
       youtubeId: "W2B6VH_8sZk",
       url: "https://www.youtube.com/watch?v=W2B6VH_8sZk"
     },
-    {
-      title: "Bhayangara Sookshmathayil | Christmas Carol",
-      category: "Christmas Songs",
-      youtubeId: "5o4Oewpx7iY",
-      url: "https://www.youtube.com/watch?v=5o4Oewpx7iY"
-    },
 
     // ===== Easter Special Songs =====
     {
@@ -569,12 +536,6 @@
       youtubeId: "yTt6kk1Lr6M",
       url: "https://www.youtube.com/watch?v=yTt6kk1Lr6M"
     },
-    {
-      title: "Yesu Uyirnnu | Resurrection Song",
-      category: "Easter Songs",
-      youtubeId: "jVcN-yMkS1A",
-      url: "https://www.youtube.com/watch?v=jVcN-yMkS1A"
-    },
 
     // ===== P Jayachandran Special =====
     {
@@ -584,12 +545,6 @@
       url: "https://www.youtube.com/watch?v=M-HhWtM5dR4"
     },
     {
-      title: "Njan Nadanam Kaanum | P Jayachandran",
-      category: "P Jayachandran Songs",
-      youtubeId: "jJK4H0AF8y8",
-      url: "https://www.youtube.com/watch?v=jJK4H0AF8y8"
-    },
-    {
       title: "Thirunaal Varum | P Jayachandran",
       category: "P Jayachandran Songs",
       youtubeId: "V15x_-Tyvuc",
@@ -597,12 +552,6 @@
     },
 
     // ===== Kester Special =====
-    {
-      title: "Manassile Niranja Nadiye | Kester",
-      category: "Kester Songs",
-      youtubeId: "AbcxBKqy9Jw",
-      url: "https://www.youtube.com/watch?v=AbcxBKqy9Jw"
-    },
     {
       title: "En Sneha Daivam | Kester",
       category: "Kester Songs",
@@ -623,36 +572,36 @@
       youtubeId: "ySR-9Gm7pAA",
       url: "https://www.youtube.com/watch?v=ySR-9Gm7pAA"
     },
-    {
-      title: "Karunya Sagaran | Sujatha",
-      category: "Sujatha Songs",
-      youtubeId: "cBFqI92Gz-Q",
-      url: "https://www.youtube.com/watch?v=cBFqI92Gz-Q"
-    },
 
-    // ===== Playlists =====
+    // ===== WORKING PLAYLISTS (Corrected Format) =====
     {
-      title: "Popular Malayalam Christian Songs – Playlist",
+      title: "Malayalam Christian Songs Playlist - Best Collection",
       category: "Playlists",
-      youtubeId: "videoseries?list=PL9bl9M5a5QAYdNgpHLjAxcPImh1eWdibD",
+      youtubeId: "PL9bl9M5a5QAYdNgpHLjAxcPImh1eWdibD",
       url: "https://www.youtube.com/playlist?list=PL9bl9M5a5QAYdNgpHLjAxcPImh1eWdibD"
     },
     {
-      title: "Non Stop Malayalam Worship Songs – Playlist",
+      title: "Non Stop Malayalam Worship Songs - Complete Playlist",
       category: "Playlists",
-      youtubeId: "videoseries?list=PLuUgSD-kFnq0roO-b2Lyo5Pahm1eRr1r-",
+      youtubeId: "PLuUgSD-kFnq0roO-b2Lyo5Pahm1eRr1r-",
       url: "https://www.youtube.com/playlist?list=PLuUgSD-kFnq0roO-b2Lyo5Pahm1eRr1r-"
     },
     {
-      title: "Best of KS Chithra Devotional Songs – Playlist",
+      title: "KS Chithra Devotional Songs - Complete Playlist",
       category: "Playlists",
-      youtubeId: "videoseries?list=PLWjJ_23dX9vgqAvm7F0Gc8u1KcVYMLG9I",
+      youtubeId: "PLWjJ_23dX9vgqAvm7F0Gc8u1KcVYMLG9I",
       url: "https://www.youtube.com/playlist?list=PLWjJ_23dX9vgqAvm7F0Gc8u1KcVYMLG9I"
     },
     {
-      title: "MG Sreekumar Devotional Collection – Playlist",
+      title: "Malayalam Christmas Songs Playlist",
       category: "Playlists",
-      youtubeId: "videoseries?list=PL_hLAosjrgW5QeVCszlHnWeVDj9YKqHtw",
+      youtubeId: "PL8k0CWzu88fC50DmKtMElrQG1UBNxbsvZ",
+      url: "https://www.youtube.com/playlist?list=PL8k0CWzu88fC50DmKtMElrQG1UBNxbsvZ"
+    },
+    {
+      title: "MG Sreekumar Devotional Songs Playlist",
+      category: "Playlists",
+      youtubeId: "PL_hLAosjrgW5QeVCszlHnWeVDj9YKqHtw",
       url: "https://www.youtube.com/playlist?list=PL_hLAosjrgW5QeVCszlHnWeVDj9YKqHtw"
     },
 
@@ -669,12 +618,6 @@
       youtubeId: "lHNVl2lgW5A",
       url: "https://www.youtube.com/watch?v=lHNVl2lgW5A"
     },
-    {
-      title: "Yesu Nin Padangal | Children's Song",
-      category: "Children's Songs",
-      youtubeId: "cAJP8l3e0Zg",
-      url: "https://www.youtube.com/watch?v=cAJP8l3e0Zg"
-    },
 
     // ===== Wedding & Special Occasion Songs =====
     {
@@ -683,12 +626,6 @@
       youtubeId: "9hC8P8_B1dI",
       url: "https://www.youtube.com/watch?v=9hC8P8_B1dI"
     },
-    {
-      title: "Vivaha Geethangal | Wedding Songs",
-      category: "Wedding Songs",
-      youtubeId: "cL_1eZvwlWU",
-      url: "https://www.youtube.com/watch?v=cL_1eZvwlWU"
-    },
 
     // ===== Bible Songs =====
     {
@@ -696,12 +633,6 @@
       category: "Bible Songs",
       youtubeId: "u0uBmItLSag",
       url: "https://www.youtube.com/watch?v=u0uBmItLSag"
-    },
-    {
-      title: "Psalms in Malayalam | Devotional Songs",
-      category: "Bible Songs",
-      youtubeId: "eI_yKxrAj84",
-      url: "https://www.youtube.com/watch?v=eI_yKxrAj84"
     },
 
     // ===== Recent Popular Songs =====
@@ -716,12 +647,6 @@
       category: "Recent Songs",
       youtubeId: "5K-vnmKfTKY",
       url: "https://www.youtube.com/watch?v=5K-vnmKfTKY"
-    },
-    {
-      title: "Yeshu Nin Kaivitham | Modern Devotional",
-      category: "Recent Songs",
-      youtubeId: "I2UCSY-gXcs",
-      url: "https://www.youtube.com/watch?v=I2UCSY-gXcs"
     }
   ];
 
@@ -776,12 +701,17 @@
     list.forEach((song, index) => {
       const card = document.createElement("div");
       card.className = "song-card";
+      
+      // Check if it's a playlist
+      const isPlaylist = song.category === "Playlists";
+      
       card.innerHTML = `
         <h3>${song.title}</h3>
         <div class="category"><i class="${categoryIcons[song.category] || "fas fa-tag"}"></i> ${song.category}</div>
+        ${isPlaylist ? '<div class="playlist-warning"><i class="fas fa-exclamation-triangle"></i> Click "Open in YouTube" for full playlist</div>' : ''}
         <div class="actions">
           <button class="play-btn" data-index="${index}">
-            <i class="fas fa-play"></i> Play Now
+            <i class="fas fa-play"></i> ${isPlaylist ? 'View Playlist' : 'Play Now'}
           </button>
           <a href="${song.url}" target="_blank">
             <i class="fab fa-youtube"></i> Open in YouTube
@@ -814,11 +744,14 @@
     currentSongIndex = index;
     const song = list[currentSongIndex];
     
+    // Check if it's a playlist
+    const isPlaylist = song.category === "Playlists";
+    
     // Generate embed URL with proper parameters
     let embedUrl;
-    if (song.youtubeId.startsWith('videoseries?')) {
-      // For playlists
-      embedUrl = `https://www.youtube.com/embed/${song.youtubeId}?autoplay=1&rel=0&modestbranding=1`;
+    if (isPlaylist) {
+      // For playlists - CORRECT FORMAT
+      embedUrl = `https://www.youtube.com/embed/videoseries?list=${song.youtubeId}&autoplay=1&rel=0`;
     } else {
       // For single videos
       embedUrl = `https://www.youtube.com/embed/${song.youtubeId}?autoplay=1&rel=0&modestbranding=1&showinfo=0`;
@@ -826,7 +759,7 @@
     
     // Update player
     playerFrame.src = embedUrl;
-    currentSongTitle.textContent = song.title;
+    currentSongTitle.textContent = song.title + (isPlaylist ? ' (Playlist)' : '');
     nowPlaying.classList.add('active');
     
     // Scroll to player
@@ -891,9 +824,6 @@
   // Initialize the page
   renderFilters();
   renderSongs(songs);
-  
-  // Auto-play first song on page load (optional)
-  // setTimeout(() => playSong(0), 1000);
 </script>
 
 </body>
